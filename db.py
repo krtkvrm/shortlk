@@ -43,6 +43,3 @@ class DB:
         except :
             self.db.rollback()
             return 1
-
-    def __del__(self):
-        self.db.close()
