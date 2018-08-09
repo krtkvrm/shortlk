@@ -137,3 +137,6 @@ venv.bak/
 [Ss]cripts
 pyvenv.cfg
 pip-selfcheck.json
+
+# Local env variables
+env.list
