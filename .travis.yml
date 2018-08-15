@@ -1,0 +1,26 @@
+language: python
+python:
+- '3.6'
+sudo: required
+addons:
+  ssh_known_hosts: ec2-52-206-3-72.compute-1.amazonaws.com
+services:
+- docker
+before_install:
+- wget -q $SSH_HELPER
+- openssl aes-256-cbc -K $encrypted_2937cbc2de8e_key -iv $encrypted_2937cbc2de8e_iv
+  -in coyote.enc -out coyote -d
+- eval "$(ssh-agent -s)"
+- chmod 600 coyote
+- ssh-add coyote
+- echo -e "db_host=$db_host\ndb_user=$db_user\ndb_passwd=$db_passwd\ndb_prod=$db_prod"| envsubst > env.list
+install:
+- pip install -r requirements.txt
+before_script:
+- chmod 700 run.sh
+script:
+- flake8 . --count --max-complexity=16 --show-source --statistics
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: sh ./deploy.sh
