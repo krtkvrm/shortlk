@@ -6,7 +6,6 @@ import string
 import re
 
 app = Flask(__name__)
-db = DB()
 
 
 @app.route('/', methods=['GET'])
@@ -16,6 +15,7 @@ def index():
 
 @app.route('/', methods=['POST'])
 def newURL():
+    db = DB()
 
     print(request.data)
 
@@ -48,6 +48,7 @@ def newURL():
 
 @app.route('/<url>', methods=['GET'])
 def redirect_url(url=''):
+    db = DB()
     result = db.search('urls', 'url', where="short_code = '{}'".format(url))
 
     if result:
