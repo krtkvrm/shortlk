@@ -10,6 +10,13 @@ var load = ()=> {
     </form>`)
 }
 
+var concatHTTP = (url) => {
+    if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+        url = "http://" + url;
+    }
+    return url;
+}
+
 $(() => {
     load()
 
@@ -25,7 +32,7 @@ $(() => {
             contentType: "application/json; charset=utf-8",
             success: function(data){
                 var shortURL = window.location.host + "/" + data.code
-                var oldLink = ['<a href="http://'+url+'" target="_blank"><h3 style="margin-bottom: 20px;">'+url+'</h3></a>',
+                var oldLink = ['<a href="'+ concatHTTP(url) +'" target="_blank"><h3 style="margin-bottom: 20px;">'+url+'</h3></a>',
                                 '<div class="arrow_box  style="margin-bottom: 20px;"">',
                                     '<h3 class="logo">Converted to </h3>',
                                 '</div>'].join('\n')
