@@ -13,7 +13,7 @@ before_install:
 - eval "$(ssh-agent -s)"
 - chmod 600 coyote
 - ssh-add coyote
-- echo -e "db_host=$db_host\ndb_user=$db_user\ndb_passwd=$db_passwd\ndb_prod=$db_prod"| envsubst > env.list
+- echo -e "db_host=$db_host\ndb_user=$db_user\ndb_passwd=$db_passwd\ndb_prod=$db_prod\nCAPTCHA_KEY_SERVER=$CAPTCHA_KEY_SERVER"| envsubst > env.list
 install:
 - pip install -r requirements.txt
 before_script:

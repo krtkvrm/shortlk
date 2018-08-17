@@ -3,6 +3,8 @@ import json
 from db import DB
 import random
 import string
+import requests
+import os
 import re
 
 app = Flask(__name__)
@@ -20,6 +22,21 @@ def newURL():
     print(request.data)
 
     data = JSONStringer(request)
+
+    payload = "secret={0}&response={1}&remoteip={2}".format(
+        os.environ.get('CAPTCHA_KEY_SERVER'),
+        data['token'],
+        request.remote_addr
+    )
+    res = json.loads(
+        requests.post(
+            "https://www.google.com/recaptcha/api/siteverify",
+            data=payload,
+            headers={
+                'Content-Type': 'application/x-www-form-urlencoded'}).text)
+    print(res['success'])
+    if str(res['success']) == 'False':
+        return json.dumps({'error': 'reCaptcha Error!'})
 
     code = ''.join(random.choices(string.ascii_uppercase
                                   + string.digits, k=random.randint(2, 5)))
