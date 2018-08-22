@@ -14,6 +14,11 @@ before_install:
 - chmod 600 coyote
 - ssh-add coyote
 - echo -e "db_host=$db_host\ndb_user=$db_user\ndb_passwd=$db_passwd\ndb_prod=$db_prod\nCAPTCHA_KEY_SERVER=$CAPTCHA_KEY_SERVER"| envsubst > env.list
+- wget -qO- 'https://cli.netlify.com/download/latest/linux' | tar xz
+- curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
+- sudo apt-get install -y nodejs
+- sudo apt-get install -y build-essential
+- sudo npm install -g bower
 install:
 - pip install -r requirements.txt
 before_script:
