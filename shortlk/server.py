@@ -1,4 +1,4 @@
-from flask import (Flask, request, redirect, render_template)
+from flask import (Flask, request, redirect)
 import json
 from db import DB
 import random
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return redirect('http://web.shortlk.gq', code=301)
 
 
 @app.route('/', methods=['POST'])
