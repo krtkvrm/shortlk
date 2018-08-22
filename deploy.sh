@@ -8,7 +8,17 @@ curl -s -X POST $(echo $cache_url) \
 
 echo "Cache Cleared"
 
-echo "Deployment Started!"
+echo "Frond End Deployment"
+
+mkdir -p frontend/static
+
+python3 shortlk/render.py > frontend/index.html
+
+cp -R  shortlk/static frontend/static
+
+./netlifyclt deploy -A $NETLIFY_KEY -s $NETLIFY_PROJECT_KEY -p frontend
+
+echo "API Deployment Started!"
 
 rsync -r -I --quiet $TRAVIS_BUILD_DIR ubuntu@ec2-52-206-3-72.compute-1.amazonaws.com:apps
 
