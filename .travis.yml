@@ -3,7 +3,7 @@ python:
 - '3.6'
 sudo: required
 addons:
-  ssh_known_hosts: ec2-52-206-3-72.compute-1.amazonaws.com
+  ssh_known_hosts: ubuntu@ec2-54-85-21-196.compute-1.amazonaws.com
 services:
 - docker
 before_install:
