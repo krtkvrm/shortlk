@@ -8,6 +8,9 @@ curl -s -X POST $(echo $cache_url) \
 
 echo "Cache Cleared"
 
+# TESTING TRAVIS SECRET ENV
+echo $test
+
 echo "Deployment Started!"
 
 rsync -r -I --quiet $TRAVIS_BUILD_DIR ubuntu@ec2-54-85-21-196.compute-1.amazonaws.com:apps
